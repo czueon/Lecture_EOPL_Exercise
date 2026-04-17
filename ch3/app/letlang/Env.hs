@@ -4,34 +4,40 @@ module Env where
 
 import Expr
 
--- [TODO] Complete data Env.
---   data Env = 
---     ...
-data Env = DummyEnv
+data Env =
+    Empty_Env
+  | Extend_Env Identifier ExpVal Env
   deriving (Show)
 
 
 empty_env :: Env
-empty_env = error "TODO: implement empty_env function"
+empty_env = Empty_Env
 
 extend_env :: Identifier -> ExpVal -> Env -> Env
-extend_env x v env = error "TODO: implement extend_env function"
+extend_env x v env = Extend_Env x v env
 
+-- case expression
+-- apply_env :: Env -> Identifier -> ExpVal
+-- apply_env env x =
+--   case env of
+--     Empty_Env -> error ("Not found: " ++ x)
+--     Extend_Env var v env1 ->
+--       if x == var then v
+--       else apply_env env1 x
+
+-- pattern matching
 apply_env :: Env -> Identifier -> ExpVal
-apply_env env x = error "TODO: implement apply_env function"
+apply_env (Empty_Env) x = error ("Not found: " ++ x)
+apply_env (Extend_Env var v env1) x =
+  if x == var then v
+  else apply_env env1 x
 
--- [TODO] Complete data ExpVal.
---   data ExpVal = 
---     ...
-data ExpVal = DummyExpVal
+data ExpVal =
+    Num_Val  { expval_num  :: Int   } 
+  | Bool_Val { expval_bool :: Bool }
    
 instance Show ExpVal where
-   show DummyExpVal   = "DummyExpVal"
---   show (Num_Val num)   = show num
---   show (Bool_Val bool) = show bool
+  show (Num_Val num)   = show num
+  show (Bool_Val bool) = show bool
 
 type DenVal = ExpVal   
-
-
-
-

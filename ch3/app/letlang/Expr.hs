@@ -4,21 +4,32 @@ module Expr where
 
 type Program = Exp
 
--- [TODO] Complete data Exp. 
--- data Exp = 
---       ... 
-data Exp = DummyExp
+data Exp =
+  Const_Exp Int               -- Expression -> integer_number
+  | Diff_Exp Exp Exp            -- Expression -> - integer_number
+                                -- Expression -> - (Expression, Expression)
+  | IsZero_Exp Exp                -- Expression -> zero? (Expression)
+  | If_Exp Exp Exp Exp          -- Expression -> if Expression then Expression else Expression
+  | Var_Exp Identifier          -- Expression -> identifier
+  | Let_Exp Identifier Exp Exp  -- Expression -> let identifier = Expression in Expression
   deriving Show
 
 type Identifier = String
 
-const_exp n = error "TODO: implement a const_exp function" 
-diff_exp e1 e2 = error "TODO: implement a diff_exp function"
+const_exp :: Int -> Exp
+const_exp n = Const_Exp n
 
-iszero_exp e = error "TODO: implement a iszero_exp function" 
+diff_exp :: Exp -> Exp -> Exp
+diff_exp e1 e2 = Diff_Exp e1 e2
 
-if_exp e1 e2 e3 = error "TODO: implement a if_exp function" 
+iszero_exp :: Exp -> Exp
+iszero_exp e = IsZero_Exp e
 
-var_exp s = error "TODO: implement a var_exp function" 
+if_exp :: Exp -> Exp -> Exp -> Exp
+if_exp e1 e2 e3 = If_Exp e1 e2 e3
 
-let_exp x e1 e2 = error "TODO: implement a let_exp function" 
+var_exp :: Identifier -> Exp
+var_exp s = Var_Exp s
+
+let_exp :: Identifier -> Exp -> Exp -> Exp
+let_exp x e1 e2 = Let_Exp x e1 e2
