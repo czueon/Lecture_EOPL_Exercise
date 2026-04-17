@@ -8,3 +8,5 @@ action_table*.txt
 *.grm.hash
 prod_rules*.txt
 .stack-work
+
+.vscode
