@@ -44,7 +44,7 @@ doTest (TDTC tcname expr_text maybeResult) =
       -- Just to add the type of x!
       case maybeResult of 
         Just ty' ->
-          do eitherTyOrErr <- typeCheck (Let_Exp "x" (Const_Exp 1) expression)
+          do eitherTyOrErr <- typeCheck expression --(Let_Exp "x" (Const_Exp 1) expression)
              case eitherTyOrErr of
               Left errMsg ->
                 putStrLn ("Expected " ++ show ty' ++ " but got " ++ errMsg ++ " in " ++ show expression)
